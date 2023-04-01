@@ -32,15 +32,21 @@ data Square = X | O
 
 
 -- Q#07
-data GameState = "X won the game!" | "O won the game" | "The game is a tie!" | "The game is in progress..."
+data GameState = XWon | OWon | Tie | InProgress
+
+checkGameState t = case t of
+     XWon -> "X won the game!"
+     OWon -> "O won the game"
+     Tie -> "The game is a tie!" 
+     InProgress -> "The game is in progress..."
 
 
 -- Q#08
-
-
-
-
-
+type Player = Square
+type Row = [Square]
+type Line = [Square]
+type Board = [Row]
+type Move = (Int, Int)
 
 -- Q#09
 
