@@ -50,10 +50,15 @@ type Move = (Int, Int)
 
 -- Q#09
 
-getFirstPlayer = undefined
+getFirstPlayer :: Bool -> Player
+getFirstPlayer bool = 
+    if bool == True then X 
+    else O
 
-
-getFirstPlayer_ = undefined
+getFirstPlayer_ :: Bool -> Player
+getFirstPlayer bool = 
+    | bool == True = X
+    | bool == False = O
 
 -- Q#10
 
