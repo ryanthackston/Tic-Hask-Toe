@@ -28,7 +28,7 @@ _SEP_ = "_|_"
 -- *** Assignment 1-2 *** --
 
 -- Q#06
-data Square = X | O
+data Square = X | O | Empty
 
 
 -- Q#07
@@ -49,26 +49,37 @@ type Board = [Row]
 type Move = (Int, Int)
 
 -- Q#09
-
 getFirstPlayer :: Bool -> Player
 getFirstPlayer bool = 
     if bool == True then X 
     else O
 
 getFirstPlayer_ :: Bool -> Player
-getFirstPlayer bool = 
-    | bool == True = X
-    | bool == False = O
+getFirstPlayer_ bool
+    | True  = X
+    | otherwise = O
 
 -- Q#10
 
-showGameState gs = undefined
+showGameState :: GameState -> String
+showGameState gs = case gs of
+    XWon          ->       "X won the game!"
+    OWon         ->       "O won the game"
+    Tie              ->       "The game is a tie!" 
+    InProgress ->       "The game is in progress..."
 
 -- Q#11
 
-switchPlayer = undefined
+switchPlayer :: Player -> Player
+switchPlayer X = O
+switchPlayer O = X
+switchPlayer Empty = Empty
+
+
 
 
 -- Q#12
-
-showSquare = undefined
+showSquare :: Square -> String
+showSquare X = "X"
+showSquare O = "O"
+showSquare  Empty = "_"
