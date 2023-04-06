@@ -75,6 +75,7 @@ stringToMove s (_:_) = (num1, num2)
     chk2 = elem (tail s) ['A'..'C' ] || elem (tail s) ['a'..'c' ] || elem (head (tail s)) ['0'.. '2']
     if (chk1 == True) && (chk2 == True) then 
       let
+        coord = (num1, num2)
         num1 = head s
         num2 = tail s
       in coord
