@@ -9,40 +9,53 @@ import Data.List (intercalate)
 
 -- Q#01
 
-promptPlayer = undefined
+promptPlayer :: Player -> String
+promptPlayer Empty = concat ["No player's turn" ]
+promptPlayer p = concat ["Player ", show(p), "'s turn: enter a row and column position " ]
 
 -- Q#02
-
-_RANGE_ = undefined
+_RANGE_ ::  [Int]
+_RANGE_ = [0 .. ((_SIZE_) - 1)]
 
 -- Q#03
+isDigit :: Char -> Bool
+isDigit c = c `elem` ['0' .. '9']
 
-isDigit = undefined
 
-
-readDigit = undefined
+readDigit :: Char -> Int
+readDigit c = if isDigit c then read [c] else -1
 
 -- Q#04
+-- data Square = X | O | Empty deriving(Show, Eq)
 
-_EMPTY_ROW_ = undefined
+_EMPTY_ROW_ :: Row
+_EMPTY_ROW_ = replicate _SIZE_ Empty
 
-
-_EMPTY_BOARD_ = undefined
+_EMPTY_BOARD_ :: Board
+_EMPTY_BOARD_ = replicate _SIZE_ _EMPTY_ROW_
 
 -- Q#05
 
-isTied = undefined
+isTied :: Board -> Bool
+isTied b = not(elem Empty (concat b))
 
-
-_TIED_BOARD_ = undefined
+_TIED_BOARD_ :: Board 
+_TIED_BOARD_ = [
+    [X, O, O]
+  , [O, X, X]
+  , [O, X, O]
+  ]
 
 -- Q#06
 
-indexRowStrings = undefined
+indexRowStrings :: [String] -> [(Char,String)]
+indexRowStrings []  = []
+indexRowStrings s = zip ['A'.. ] s
 
 -- Q#07
 
-formatLine = undefined
+formatLine :: [String] -> String
+formatLine s = _SEP_ ++ intercalate _SEP_ s ++ _SEP_
 
 -- *** Assignment 2-2 *** --
 
