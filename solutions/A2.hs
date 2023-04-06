@@ -60,12 +60,25 @@ formatLine s = _SEP_ ++ intercalate _SEP_ s ++ _SEP_
 -- *** Assignment 2-2 *** --
 
 -- Q#08
+isMoveInBounds :: Move -> Bool
+isMoveInBounds (x, y) = checkX && checkY
+  where
+    checkX = (x >= 0) && (x < _SIZE_)
+    checkY = (y >= 0) && (y < _SIZE_)
 
-isMoveInBounds = undefined
+-- Q#09 -- TODO
 
--- Q#09
-
-stringToMove = undefined
+stringToMove :: String -> Move
+stringToMove s (_:_) = (num1, num2)
+  where
+    chk1 = elem (head s) ['A'..'C' ] || elem (head s) ['a'..'c' ] || elem (head (tail s)) ['0'.. '2' ]
+    chk2 = elem (tail s) ['A'..'C' ] || elem (tail s) ['a'..'c' ] || elem (head (tail s)) ['0'.. '2']
+    if (chk1 == True) && (chk2 == True) then 
+      let
+        num1 = head s
+        num2 = tail s
+      in coord
+    else coord = _INVALID_MOVE_
 
 -- Q#10
 
