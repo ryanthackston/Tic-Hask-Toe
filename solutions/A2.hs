@@ -66,21 +66,44 @@ isMoveInBounds (x, y) = checkX && checkY
     checkX = (x >= 0) && (x < _SIZE_)
     checkY = (y >= 0) && (y < _SIZE_)
 
--- Q#09 -- TODO
-
+-- Q#09
 stringToMove :: String -> Move
-stringToMove s (_:_) = (num1, num2)
+stringToMove s (_:_) = if isMoveInBounds then convertString else _INVALID_MOVE_
   where
-    chk1 = elem (head s) ['A'..'C' ] || elem (head s) ['a'..'c' ] || elem (head (tail s)) ['0'.. '2' ]
-    chk2 = elem (tail s) ['A'..'C' ] || elem (tail s) ['a'..'c' ] || elem (head (tail s)) ['0'.. '2']
-    if (chk1 == True) && (chk2 == True) then 
-      let
-        coord = (num1, num2)
-        num1 = head s
-        num2 = tail s
-      in coord
-    else coord = _INVALID_MOVE_
+    convertString = (convHeadS, convTailS)
+      where
+        convHeadS s 
+          | head s == ('A') = 0
+          | head s == ('B') = 1
+          | head s == ('C') = 2
+          | head s == ('a') = 0
+          | head s == ('b') = 1
+          | head s == ('c') = 2
+          | head s == ('0') = 0
+          | head s == ('1') = 1
+          | head s == ('2') = 2
+          | otherwise = -1
+
+         convTailS s 
+          | head(tail s)  == ('A') = 0
+          | head(tail s)  == ('B') = 1
+          | head(tail s)  == ('C') = 2
+          | head(tail s)  == ('a') = 0
+          | head(tail s)  == ('b') = 1
+          | head(tail s)  == ('c') = 2
+          | head(tail s)  == ('0') = 0
+          | head(tail s)  == ('1') = 1
+          | head(tail s)  == ('2') = 2      
+          | otherwise = -1
+
+
+-- stringToMove :: String -> Move
+-- stringToMove s (_:_) = if ()
+
+  -- use splitAt
+
+    -- read ['5'] :: Int
 
 -- Q#10
-
-replaceSquareInRow = undefined
+-- replaceSquareInRow :: Player -> Int -> Row -> Row
+-- replaceSquareInRow P C R = 
