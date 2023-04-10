@@ -68,13 +68,16 @@ isMoveInBounds (x, y) = checkX && checkY
     checkY = (y >= 0) && (y < _SIZE_)
 
 -- Q#09
+-- Q#09
 stringToMove :: String -> Move
-stringToMove s (_:_) = if isMoveInBounds then convertString else _INVALID_MOVE_
-  where
-    convertString = (convHeadS, convTailS)
-      where
-        convHeadS s = ord (toUpper (head s)) - ord 'A' + 1
-        convTailS s = ord (toUpper (head (tail s))) - ord 'A' + 1
+stringToMove [] = _INVALID_MOVE_
+stringToMove s = if any (== head s) (['A'..'C'] ++ ['a'..'c'] ++ ['1'..'3']) && any (== head(tail s) ) (['A'..'C'] ++ ['a'..'c'] ++ ['1'..'3']) then (ord (toUpper (head s)) - ord 'A' + 1, ord (toUpper (head (tail s))) - ord 'A' + 1) else _INVALID_MOVE_
+  -- where
+   -- convertString = (convHeadS, convTailS)
+
+   --   where
+    --    convHeadS s = ord (toUpper (head s)) - ord 'A' + 1
+   --     convTailS s = ord (toUpper (head (tail s))) - ord 'A' + 1
 
 -- stringToMove :: String -> Move
 -- stringToMove s (_:_) = if ()
