@@ -4,7 +4,7 @@ module A2 where
 
 import A1
 import Data.List (intercalate)
-import Data.Char (ord)
+import Data.Char (ord, toUpper)
 
 -- *** Assignment 2-1 *** --
 
@@ -73,30 +73,8 @@ stringToMove s (_:_) = if isMoveInBounds then convertString else _INVALID_MOVE_
   where
     convertString = (convHeadS, convTailS)
       where
-        convHeadS s 
-          | head s == ('A') = 0
-          | head s == ('B') = 1
-          | head s == ('C') = 2
-          | head s == ('a') = 0
-          | head s == ('b') = 1
-          | head s == ('c') = 2
-          | head s == ('0') = 0
-          | head s == ('1') = 1
-          | head s == ('2') = 2
-          | otherwise = -1
-
-         convTailS s 
-          | head(tail s)  == ('A') = 0
-          | head(tail s)  == ('B') = 1
-          | head(tail s)  == ('C') = 2
-          | head(tail s)  == ('a') = 0
-          | head(tail s)  == ('b') = 1
-          | head(tail s)  == ('c') = 2
-          | head(tail s)  == ('0') = 0
-          | head(tail s)  == ('1') = 1
-          | head(tail s)  == ('2') = 2      
-          | otherwise = -1
-
+        convHeadS s = ord (toUpper (head s)) - ord 'A' + 1
+        convTailS s = ord (toUpper (head (tail s))) - ord 'A' + 1
 
 -- stringToMove :: String -> Move
 -- stringToMove s (_:_) = if ()
@@ -108,3 +86,5 @@ stringToMove s (_:_) = if isMoveInBounds then convertString else _INVALID_MOVE_
 -- Q#10
 -- replaceSquareInRow :: Player -> Int -> Row -> Row
 -- replaceSquareInRow P C R = 
+  --   let newRow = if R == _EMPTY_ROW_ then tail(fst(splitAt C (_EMPTY_ROW_))) ++ [X] ++ (snd(splitAt C (_EMPTY_ROW_ ))) else
+   --  in 
