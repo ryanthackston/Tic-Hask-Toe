@@ -68,10 +68,23 @@ isMoveInBounds (x, y) = checkX && checkY
     checkY = (y >= 0) && (y < _SIZE_)
 
 -- Q#09
--- Q#09
 stringToMove :: String -> Move
 stringToMove [] = _INVALID_MOVE_
-stringToMove s = if any (== head s) (['A'..'C'] ++ ['a'..'c'] ++ ['1'..'3']) && any (== head(tail s) ) (['A'..'C'] ++ ['a'..'c'] ++ ['1'..'3']) then (ord (toUpper (head s)) - ord 'A' + 1, ord (toUpper (head (tail s))) - ord 'A' + 1) else _INVALID_MOVE_
+stringToMove s (x:xs) = let
+  headS = case x of
+    any (== x) (['A'..'C'] ++ ['a'..'c']) -> ord (toUpper x) - ord 'A' + 1
+    any (== x) (['1'..'3'])               -> ord (toUpper x) - ord '1' + 1
+    _                                     -> -1
+  tailS = case x of
+      any (== (head xs)) (['A'..'C'] ++ ['a'..'c']) -> ord (toUpper (head xs)) - ord 'A' + 1
+      any (== (head xs)) (['1'..'3'])               -> ord (toUpper (head xs)) - ord '1' + 1
+      _                                             -> -1
+  in (headS, tailS)
+
+
+ -- if any (== head s) (['A'..'C'] ++ ['a'..'c'] ++ ['1'..'3']) && any (== head(tail s) ) (['A'..'C'] ++ ['a'..'c'] ++ ['1'..'3']) 
+ -- then (ord (toUpper (head s)) - ord 'A' + 1, ord (toUpper (head (tail s))) - ord 'A' + 1) 
+--  else _INVALID_MOVE_
   -- where
    -- convertString = (convHeadS, convTailS)
 
@@ -79,15 +92,34 @@ stringToMove s = if any (== head s) (['A'..'C'] ++ ['a'..'c'] ++ ['1'..'3']) && 
     --    convHeadS s = ord (toUpper (head s)) - ord 'A' + 1
    --     convTailS s = ord (toUpper (head (tail s))) - ord 'A' + 1
 
+
 -- stringToMove :: String -> Move
 -- stringToMove s (_:_) = if ()
 
   -- use splitAt
 
     -- read ['5'] :: Int
+  
 
 -- Q#10
--- replaceSquareInRow :: Player -> Int -> Row -> Row
--- replaceSquareInRow P C R = 
-  --   let newRow = if R == _EMPTY_ROW_ then tail(fst(splitAt C (_EMPTY_ROW_))) ++ [X] ++ (snd(splitAt C (_EMPTY_ROW_ ))) else
-   --  in 
+--replaceSquareInRow :: Player -> Int -> Row -> Row
+--replaceSquareInRow P C R = 
+--  let newRow = if R == _EMPTY_ROW_ 
+--    then tail(fst(splitAt C (_EMPTY_ROW_))) ++ [X] ++ (snd(splitAt C (_EMPTY_ROW_ ))) 
+--    else 
+--  in 
+
+_TIED_BOARD_ :: Board
+_TIED_BOARD_ = [[X, O, O], [O, X, X], [O, X, O]]
+
+t = last _TIED_BOARD_
+
+-- Q#10
+replaceSquareInRow :: Player -> Int -> Row -> Row
+replaceSquareInRow P C R = let
+  rowReplaceByCol = case C of 
+    C == 1 -> [P] ++ snd(splitAt C t)
+    C == 2 -> [head(fst(splitAt 2 t))] ++ [O] ++ (snd(splitAt 2 t))
+    C == 3 -> fst(splitAt (C-1) t) ++ [X]
+    _      -> R
+  in rowReplaceByCol
