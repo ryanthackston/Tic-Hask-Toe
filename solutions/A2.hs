@@ -118,8 +118,9 @@ t = last _TIED_BOARD_
 replaceSquareInRow :: Player -> Int -> Row -> Row
 replaceSquareInRow P C R = let
   rowReplaceByCol = case C of 
-    C == 1 -> [P] ++ snd(splitAt C t)
-    C == 2 -> [head(fst(splitAt 2 t))] ++ [O] ++ (snd(splitAt 2 t))
-    C == 3 -> fst(splitAt (C-1) t) ++ [X]
-    _      -> R
+    1 -> [P] : snd splitAt C R
+    2 -> [head fst(splitAt C R)] ++ [P] ++ snd splitAt C R
+    3 -> fst splitAt (C-1) R ++ [P]
+    _ -> R
   in rowReplaceByCol
+
