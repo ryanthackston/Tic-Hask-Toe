@@ -70,36 +70,16 @@ isMoveInBounds (x, y) = checkX && checkY
 -- Q#09
 stringToMove :: String -> Move
 stringToMove [] = _INVALID_MOVE_
-stringToMove s (x:xs) = let
-  headS = case x of
-    any (== x) (['A'..'C'] ++ ['a'..'c']) -> ord (toUpper x) - ord 'A' + 1
-    any (== x) (['1'..'3'])               -> ord (toUpper x) - ord '1' + 1
-    _                                     -> -1
-  tailS = case x of
-      any (== (head xs)) (['A'..'C'] ++ ['a'..'c']) -> ord (toUpper (head xs)) - ord 'A' + 1
-      any (== (head xs)) (['1'..'3'])               -> ord (toUpper (head xs)) - ord '1' + 1
-      _                                             -> -1
-  in (headS, tailS)
-
-
- -- if any (== head s) (['A'..'C'] ++ ['a'..'c'] ++ ['1'..'3']) && any (== head(tail s) ) (['A'..'C'] ++ ['a'..'c'] ++ ['1'..'3']) 
- -- then (ord (toUpper (head s)) - ord 'A' + 1, ord (toUpper (head (tail s))) - ord 'A' + 1) 
---  else _INVALID_MOVE_
-  -- where
-   -- convertString = (convHeadS, convTailS)
-
-   --   where
-    --    convHeadS s = ord (toUpper (head s)) - ord 'A' + 1
-   --     convTailS s = ord (toUpper (head (tail s))) - ord 'A' + 1
-
-
--- stringToMove :: String -> Move
--- stringToMove s (_:_) = if ()
-
-  -- use splitAt
-
-    -- read ['5'] :: Int
-  
+stringToMove [_] = _INVALID_MOVE_
+stringToMove [x,y] = let
+  xMove = if convertRowIndex x > readDigit x 
+    then convertRowIndex x
+    else readDigit x
+  yMove = if (convertRowIndex y) > (readDigit y) 
+    then convertRowIndex y
+    else readDigit y
+  in (xMove, yMove)
+stringToMove [_:_] = _INVALID_MOVE_
 
 -- Q#10
 --replaceSquareInRow :: Player -> Int -> Row -> Row
