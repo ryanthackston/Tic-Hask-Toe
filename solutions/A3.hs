@@ -30,14 +30,19 @@ formatRows (x:xs) = formatLine (showSquares x) : formatRows xs
 
 -- Q#04
 
-isColEmpty = undefined
+isColEmpty :: Row -> Int -> Bool
+isColEmpty [] _            = False
+isColEmpty r c             = isMoveInBounds (length r - 1, c) && (r !! c) == Empty
 
 -- Q#05
 
-dropFirstCol = undefined
+dropFirstCol :: Board -> Board
+dropFirstCol [] = []
+dropFirstCol (x:xs)  = drop 1 x : dropFirstCol xs
 
-
-dropLastCol = undefined
+dropLastCol :: Board -> Board
+dropLastCol [] = []
+dropLastCol (x:xs)  = take 2 x : dropLastCol xs
 
 -- Q#06
 
