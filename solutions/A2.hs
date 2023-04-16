@@ -69,17 +69,8 @@ isMoveInBounds (x, y) = checkX && checkY
 
 -- Q#09
 stringToMove :: String -> Move
-stringToMove [] = _INVALID_MOVE_
-stringToMove [_] = _INVALID_MOVE_
-stringToMove [x,y] = let
-  xMove = if convertRowIndex x > readDigit x 
-    then convertRowIndex x
-    else readDigit x
-  yMove = if (convertRowIndex y) > (readDigit y) 
-    then convertRowIndex y
-    else readDigit y
-  in (xMove, yMove)
-stringToMove [_:_] = _INVALID_MOVE_
+stringToMove [r, c] = (convertRowIndex r, readDigit c)
+stringToMove _      = _INVALID_MOVE_
 
 -- Q#10
 --replaceSquareInRow :: Player -> Int -> Row -> Row
@@ -96,11 +87,11 @@ t = last _TIED_BOARD_
 
 -- Q#10
 replaceSquareInRow :: Player -> Int -> Row -> Row
-replaceSquareInRow P C R = let
-  rowReplaceByCol = case C of 
-    1 -> [P] : snd splitAt C R
-    2 -> [head fst(splitAt C R)] ++ [P] ++ snd splitAt C R
-    3 -> fst splitAt (C-1) R ++ [P]
-    _ -> R
-  in rowReplaceByCol
+replaceSquareInRow p c r = xs ++ ys'
+  where
+    (xs, ys) = splitAt c r
+    ys'
+      | null ys = []
+      | c < 0     = ys
+      | otherwise = p : tail ys
 
