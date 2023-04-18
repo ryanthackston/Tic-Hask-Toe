@@ -36,21 +36,28 @@ isColEmpty r c             = isMoveInBounds (length r - 1, c) && (r !! c) == Emp
 
 -- Q#05
 
+-- Q#05
+t = _TIED_BOARD_
+t2 = [[O, X, X], [X, X, O], [O, O, X]]
+
 dropFirstCol :: Board -> Board
 dropFirstCol [] = []
 dropFirstCol (x:xs)  = drop 1 x : dropFirstCol xs
 
 dropLastCol :: Board -> Board
 dropLastCol [] = []
-dropLastCol (x:xs)  = take 2 x : dropLastCol xs
+dropLastCol (x:xs) = take (length x - 1) x : dropLastCol xs
 
 -- Q#06
+getDiag1 :: Board -> Line
+getDiag1 []      = []
+getDiag1 (x:xs) =  head x : getDiag1 (dropFirstCol xs)
 
-getDiag1 = undefined
 
 
-getDiag2 = undefined
-
+getDiag2 :: Board -> Line
+getDiag2 []     = []
+getDiag2 (x:xs) = last x : getDiag2 (dropLastCol xs)
 
 getAllLines = undefined
 
