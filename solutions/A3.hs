@@ -65,7 +65,8 @@ getAllLines = undefined
 
 -- Q#07
 
-putSquare = undefined
+putSquare :: Player -> Board -> Move -> Board
+putSquare p b m = 
 
 -- Q#08
 
