@@ -66,7 +66,8 @@ getAllLines = undefined
 -- Q#07
 
 putSquare :: Player -> Board -> Move -> Board
-putSquare p b m = 
+-- cutout the desired coordinate, add the Player value, rebuild into new board
+putSquare p b m = splitAt (snd m) (splitAt (fst m) b)
 
 -- Q#08
 
