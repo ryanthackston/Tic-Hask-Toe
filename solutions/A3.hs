@@ -70,12 +70,22 @@ putSquare :: Player -> Board -> Move -> Board
 putSquare p b m = splitAt (snd m) (splitAt (fst m) b)
 
 -- Q#08
-
-prependRowIndices = undefined
+-- test = [".SOME", ".TEST", ".STRING"]
+-- z = zip ['A'..'C'] test
+prependRowIndices :: [String] -> [String]
+prependRowIndices []       = []
+prependRowIndices (x:xs) = go (indexRowStrings (x:xs))
+  where
+    go :: [(Char, String)] -> [String]
+    go []       = []
+    go (x:xs) = uncurry (:) x : go xs
 
 -- Q#09
 
-isWinningLine = undefined
+isWinningLine :: Player -> Line -> Bool
+isWinningLine _ [] = False
+isWinningLine _ _EMPTY_ROW_ = False
+isWinningLine p = 
 
 -- Q#10
 
