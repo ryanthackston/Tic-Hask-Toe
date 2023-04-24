@@ -18,7 +18,7 @@ _HEADER_ = tail $ tail $ tail (formatLine([[' ']] ++ showInts _RANGE_))
 -- Q#02
 
 showSquares :: [Square] -> [String]
-showSquares (x:xs) = show x : showSquares xs
+showSquares (x:xs) = showSquare x : showSquares xs
 showSquares [] = []
 
 
