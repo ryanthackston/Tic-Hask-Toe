@@ -64,10 +64,20 @@ getAllLines = undefined
 -- *** Assignment 3-2 ***
 
 -- Q#07
-
 putSquare :: Player -> Board -> Move -> Board
--- cutout the desired coordinate, add the Player value, rebuild into new board
-putSquare p b m = splitAt (snd m) (splitAt (fst m) b)
+putSquare _ [] _ = []
+putSquare p (r:rs) (0, j) = let r' = replaceSquareInRow p j r in r':rs
+putSquare p b@(r:rs) m@(i, j)
+  | i > 0 = r : putSquare p rs (i-1, j)
+  | otherwise = b
+
+putSquare' :: Player -> Board -> Move -> Board
+putSquare' _ [] _  = []
+putSquare' p b (0, c)' = replaceSquareInRow p c (head(snd(splitAt 0 b))) : tail(drop 0 b)
+putSquare' p b (r, c) 
+  | r == 1 = head(take r b) : replaceSquareInRow p c (head(drop r b)) :  tail(drop r b)
+  | r == 2 =   [head (take r b), head (tail (take r b)), replaceSquareInRow p c (b !! r )]
+  | otherwise = []
 
 -- Q#08
 -- test = [".SOME", ".TEST", ".STRING"]
