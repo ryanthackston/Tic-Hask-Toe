@@ -35,7 +35,8 @@ dropLastCol b = map (take (length b - 1)) b
 
 --Q#05
 
-formatRows = undefined
+formatRows :: [Row] -> [String]
+formatRows b = map formatLine (map (showSquares) b)
 
 -- Q#06
 
