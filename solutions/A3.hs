@@ -92,10 +92,12 @@ prependRowIndices (x:xs) = go (indexRowStrings (x:xs))
 
 -- Q#09
 
+testX = [X,X,X]
+testX2 = [X,X,O]
+
 isWinningLine :: Player -> Line -> Bool
-isWinningLine _ [] = False
-isWinningLine _ _EMPTY_ROW_ = False
-isWinningLine p = 
+isWinningLine p [] = True
+isWinningLine p (r:rs) = r == p && isWinningLine p rs
 
 -- Q#10
 
