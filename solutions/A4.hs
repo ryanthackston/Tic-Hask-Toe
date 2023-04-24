@@ -36,12 +36,13 @@ dropLastCol b = map (take (length b - 1)) b
 --Q#05
 
 formatRows :: [Row] -> [String]
-formatRows b = map formatLine (map (showSquares) b)
+--formatRows b = map formatLine (map (showSquares) b)
+formatRows b = map (formatLine . showSquares) b
 
 -- Q#06
 
-isWinningLine_ = undefined
-
+isWinningLine :: Player -> Line -> Bool
+isWinningLine_ p b = filter (== replicate 3 p) (getAllLines b)
 
 -- *** Assignment 4-2 *** --
 
