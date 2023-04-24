@@ -101,4 +101,9 @@ isWinningLine p (r:rs) = r == p && isWinningLine p rs
 
 -- Q#10
 
-isValidMove = undefined
+isValidMove :: Board -> Move -> Bool
+isValidMove b (i, j) = isMoveInBounds (i, j) && go r (i, j)
+  where
+    r =  head( drop i b)
+    go  r (i, 0) = head r == Empty
+    go  r (i, j)  = go (drop 1 r) (i, j-1)
