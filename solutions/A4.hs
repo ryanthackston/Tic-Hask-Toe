@@ -15,20 +15,23 @@ import A3 hiding (
 -- *** Assignment 4-1 *** --
 
 -- Q#01
-
-_HEADER_ = undefined
+_HEADER_ :: String
+_HEADER_ = ' ' : formatLine(map show _RANGE_)
 
 -- Q#02
 
-showSquares = undefined
+showSquares :: [Square] -> [String]
+showSquares r = map show r
 
 -- Q#03
 
-dropFirstCol = undefined
+dropFirstCol :: Board -> Board
+dropFirstCol b = map (drop 1) b
 
 -- Q#04
 
-dropLastCol = undefined
+dropLastCol :: Board -> Board
+dropLastCol b = map (take (length b - 1)) b
 
 --Q#05
 
