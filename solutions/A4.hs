@@ -69,7 +69,13 @@ hasWon p b = foldr (\x y -> y || x == (replicate 3 p) ) False (getAllLines b)
 
 -- Q#09
 
-getGameState = undefined
+getGameState :: Board -> GameState
+getGameState b
+  | hasWon X b = XWon
+  | hasWon O b = OWon
+  -- Any empty tile means game in progress
+  | foldr (\x y -> y || any (==Empty) x) False (getAllLines b) = InProgress
+  | otherwise = Tie
 
 
 playMove = undefined
