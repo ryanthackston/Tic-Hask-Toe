@@ -48,7 +48,8 @@ isWinningLine_ p b = filter (== replicate 3 p) (getAllLines b)
 
 -- Q#07
 
-isWinningLine = undefined
+isWinningLine' :: Player -> Line -> Bool
+isWinningLine' p xs  = foldr (\x y -> y || x == p) False xs
 
 -- Q#08
 
