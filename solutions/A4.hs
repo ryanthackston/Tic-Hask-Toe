@@ -53,7 +53,19 @@ isWinningLine' p xs  = foldr (\x y -> y || x == p) False xs
 
 -- Q#08
 
-hasWon = undefined
+_X_WIN_ = [ [X, O, O]
+              , [O, X, O]
+              , [O, O, X]
+              ]
+
+_O_WIN_ = [ [O, X, O]
+              , [X, X, O]
+              , [X, O, O]
+              ]
+
+hasWon :: Player -> Board -> Bool
+hasWon p b = foldr (\x y -> y || x == (replicate 3 p) ) False (getAllLines b)
+
 
 -- Q#09
 
