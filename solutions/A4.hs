@@ -78,7 +78,8 @@ getGameState b
   | otherwise = Tie
 
 
-playMove = undefined
+playMove :: Player -> Board -> Move -> (GameState, Board)
+playMove p b (r,c) = (getGameState(putSquare p b (r,c)), putSquare p b (r,c))
 
 -- Q#10
 
