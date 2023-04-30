@@ -83,8 +83,10 @@ playMove p b (r,c) = (getGameState(putSquare p b (r,c)), putSquare p b (r,c))
 
 -- Q#10
 
-prependRowIndices = undefined
+prependRowIndices :: [String] -> [String]
+prependRowIndices s = zipWith (:) ['A'..] s
 
 -- Q#11
 
-formatBoard = undefined
+formatBoard :: Board -> String
+formatBoard b = unlines(_HEADER_ : prependRowIndices(formatRows b))
