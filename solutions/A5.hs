@@ -31,10 +31,12 @@ firstPlayer  = _RANDOM_BOOL_ >>= (\i -> if i==True then return X else return O)
 
 -- Q#04
 
-getMove = undefined
+getMove :: Board -> String -> IO ()
+getMove b s = isValidMove b (stringToMove s)
 
 -- Q#05
 
+play :: Player -> Board -> IO ()
 play = undefined
 
 -- *** Assignment 5-2 *** --
