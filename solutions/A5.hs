@@ -12,21 +12,22 @@ import Control.Monad (when)
 
 -- Q#01
 
-printBoard = undefined
+printBoard :: Board -> IO ()
+printBoard b = putStrLn $ formatBoard b
 
 -- Q#02
 _LOGO_PATH_ :: FilePath
 _LOGO_PATH_ = "./assets/logo.txt"
 
-
-printLogo = undefined
+printLogo :: IO String
+printLogo = readFile (_LOGO_PATH_)
 
 -- Q#03
 _RANDOM_BOOL_ :: IO Bool
 _RANDOM_BOOL_ = uniformM globalStdGen
 
-
-firstPlayer = undefined
+firstPlayer :: IO Square
+firstPlayer  = _RANDOM_BOOL_ >>= (\i -> if i==True then return X else return O)
 
 -- Q#04
 
