@@ -31,10 +31,10 @@ firstPlayer  = _RANDOM_BOOL_ >>= (\i -> if i==True then return X else return O)
 
 -- Q#04
 
-getMove :: Board -> IO ()
+getMove :: Board -> IO Move
 getMove b = do 
     s <- getLine
-    print $ isValidMove b  (stringToMove s)
+    if isValidMove b (stringToMove s) == True then return (stringToMove s) else error("Invalid move! Try again.") >> (getMove b)
     
 -- Q#05
 
