@@ -37,12 +37,12 @@ getMove b = do
     if isValidMove b (stringToMove s) == True then return (stringToMove s) else error("Invalid move! Try again.") >> (getMove b)
  -}
 getMove :: Board -> IO Move
-getMove board = getLine >>= worker . stringToMove
+getMove b = getLine >>= worker . stringToMove
     where
         worker :: Move -> IO Move
-        worker m = if isValidMove board m
+        worker m = if isValidMove b m
                       then return m
-                      else putStrLn "Invalid move! Try again" >> getMove board
+                      else putStrLn "Invalid move! Try again" >> getMove b
 -- Q#05
 
 play :: Board -> Player -> IO ()
@@ -54,19 +54,37 @@ play b p = when _DISPLAY_LOGO_ (printLogo >>= putStrLn)  >> printBoard b >> putS
                 InProgress -> play newBoard (switchPlayer p)
                 otherwise  -> printBoard newBoard >> putStrLn (showGameState newState)
 
+{- >> playMove p b (getMove b)
+ -}
+    --m <- getLine >> playMove p b m 
+
 -- *** Assignment 5-2 *** --
 
 -- Q#07
 
-printLogoDo = undefined
+printLogoDo :: IO String
+printLogoDo = do
+    readFile (_LOGO_PATH_)
 
 -- Q#08
 
-firstPlayerDo = undefined
+firstPlayerDo :: IO Square
+firstPlayerDo  = do
+    x <- _RANDOM_BOOL_
+    (\xa -> if xa==True then return X else return O) x
 
 -- Q#09
 
-getMoveDo = undefined
+getMoveDo :: Board -> IO Move
+getMoveDo b = do
+    m <- getLine
+    tmp <- return (stringToMove m)
+    if isValidMove b tmp
+        then do
+            return tmp
+        else do
+            putStrLn "Invalid move! Try again" 
+            getMoveDo b
 
 -- Q#10
 
