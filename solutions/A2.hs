@@ -3,8 +3,8 @@
 module A2 where
 
 import A1
-import Data.List (intercalate)
 import Data.Char (ord, toUpper)
+import Data.List (intercalate, transpose)
 
 -- *** Assignment 2-1 *** --
 
@@ -68,10 +68,26 @@ isMoveInBounds (x, y) = checkX && checkY
     checkY = (y >= 0) && (y < _SIZE_)
 
 -- Q#09
+
 stringToMove :: String -> Move
-stringToMove [r, c] = (convertRowIndex r, readDigit c)
+stringToMove [r, c] = (convertRowIndex r - 1, readDigit c)
+stringToMove [r, c] = (readDigit r,  readDigit c)
+stringToMove [r, c] = ( ((convertRowIndex r) - 1), ((convertRowIndex c) - 1) )
 stringToMove _      = _INVALID_MOVE_
 
+{- stringToMove :: String -> Move
+stringToMove [] = _INVALID_MOVE_
+stringToMove [_] = _INVALID_MOVE_
+stringToMove [x,y] = let
+  xMove = if convertRowIndex x > readDigit x 
+    then convertRowIndex x
+    else readDigit x
+  yMove = if (convertRowIndex y) > (readDigit y) 
+    then convertRowIndex y
+    else readDigit y
+  in (xMove, yMove)
+stringToMove [_:_] = _INVALID_MOVE_ -}
+  
 -- Q#10
 --replaceSquareInRow :: Player -> Int -> Row -> Row
 --replaceSquareInRow P C R = 
@@ -80,12 +96,22 @@ stringToMove _      = _INVALID_MOVE_
 --    else 
 --  in 
 
-_TIED_BOARD_ :: Board
-_TIED_BOARD_ = [[X, O, O], [O, X, X], [O, X, O]]
+{- _TIED_BOARD_ :: Board
+_TIED_BOARD_ = [[X, O, O], [O, X, X], [O, X, O]] -}
 
-t = last _TIED_BOARD_
+{- t = last _TIED_BOARD_ -}
 
 -- Q#10
+
+{- replaceSquareInRow :: Player -> Int -> Row -> Row
+replaceSquareInRow p c r = let
+  rowReplaceByCol = case c of 
+    1 -> [p] : snd splitAt c r
+    2 -> [head fst(splitAt c r)] ++ [p] ++ snd splitAt c r
+    3 -> fst splitAt (c-1) r ++ [p]
+    _ -> r
+  in rowReplaceByCol -}
+
 replaceSquareInRow :: Player -> Int -> Row -> Row
 replaceSquareInRow p c r = xs ++ ys'
   where
@@ -94,4 +120,3 @@ replaceSquareInRow p c r = xs ++ ys'
       | null ys = []
       | c < 0     = ys
       | otherwise = p : tail ys
-

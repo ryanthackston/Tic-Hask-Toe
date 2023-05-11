@@ -85,7 +85,45 @@ getMoveDo b = do
         else do
             putStrLn "Invalid move! Try again" 
             getMoveDo b
+    
 
+
+
+{- getMove :: Board -> IO Move
+getMove b = getLine >>= worker . stringToMove
+    where
+        worker :: Move -> IO Move
+        worker m = if isValidMove b m
+                      then return m
+                      else putStrLn "Invalid move! Try again" >> getMove b -}
 -- Q#10
 
-playDo = undefined
+{- playDo :: Board -> Player -> IO ()
+playDo b p = do
+    when _DISPLAY_LOGO_ (printLogo putStrLn)
+    printBoard b
+    promptPlayer p
+    m <- getMove b
+    let (newState, newBoard) = playMove p b m
+    case newState do
+        InProgress -> play newBoard (switchPlayer p)
+        otherwise -> printBoard newBoard putStrLn (showGameState newState) -}
+
+    {- executeMove :: Move -> IO ()
+    executeMove m = in case do
+        play (playMove p b m) (switchPlayer p)
+        showGameState (showgameState (printBoard (playMove p b m)))
+ -}
+    {- let (newState, newBoard) = playMove p b m
+    case newState do
+        play newBoard (switchPlayer p)
+        printBoard newBoard putStrLn (showGameState newState)
+ -}
+{- play :: Board -> Player -> IO ()
+play b p = when _DISPLAY_LOGO_ (printLogo >>= putStrLn)  >> printBoard b >> putStrLn (promptPlayer p) >> getMove b >>= executeMove
+    where
+        executeMove :: Move -> IO ()
+        executeMove m = let (newState, newBoard) = playMove p b m
+            in case newState of
+                InProgress -> play newBoard (switchPlayer p)
+                otherwise  -> printBoard newBoard >> putStrLn (showGameState newState) -}
