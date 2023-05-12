@@ -31,11 +31,6 @@ firstPlayer  = _RANDOM_BOOL_ >>= (\i -> if i==True then return X else return O)
 
 -- Q#04
 
-{- getMove :: Board -> IO Move
-getMove b = do 
-    s <- getLine
-    if isValidMove b (stringToMove s) == True then return (stringToMove s) else error("Invalid move! Try again.") >> (getMove b)
- -}
 getMove :: Board -> IO Move
 getMove b = getLine >>= worker . stringToMove
     where
@@ -53,10 +48,6 @@ play b p = when _DISPLAY_LOGO_ (printLogo >>= putStrLn)  >> printBoard b >> putS
             in case newState of
                 InProgress -> play newBoard (switchPlayer p)
                 otherwise  -> printBoard newBoard >> putStrLn (showGameState newState)
-
-{- >> playMove p b (getMove b)
- -}
-    --m <- getLine >> playMove p b m 
 
 -- *** Assignment 5-2 *** --
 
@@ -86,44 +77,16 @@ getMoveDo b = do
             putStrLn "Invalid move! Try again" 
             getMoveDo b
     
-
-
-
-{- getMove :: Board -> IO Move
-getMove b = getLine >>= worker . stringToMove
-    where
-        worker :: Move -> IO Move
-        worker m = if isValidMove b m
-                      then return m
-                      else putStrLn "Invalid move! Try again" >> getMove b -}
 -- Q#10
 
-{- playDo :: Board -> Player -> IO ()
+playDo :: Board -> Player -> IO ()
 playDo b p = do
-    when _DISPLAY_LOGO_ (printLogo putStrLn)
-    printBoard b
-    promptPlayer p
-    m <- getMove b
-    let (newState, newBoard) = playMove p b m
-    case newState do
-        InProgress -> play newBoard (switchPlayer p)
-        otherwise -> printBoard newBoard putStrLn (showGameState newState) -}
-
-    {- executeMove :: Move -> IO ()
-    executeMove m = in case do
-        play (playMove p b m) (switchPlayer p)
-        showGameState (showgameState (printBoard (playMove p b m)))
- -}
-    {- let (newState, newBoard) = playMove p b m
-    case newState do
-        play newBoard (switchPlayer p)
-        printBoard newBoard putStrLn (showGameState newState)
- -}
-{- play :: Board -> Player -> IO ()
-play b p = when _DISPLAY_LOGO_ (printLogo >>= putStrLn)  >> printBoard b >> putStrLn (promptPlayer p) >> getMove b >>= executeMove
-    where
-        executeMove :: Move -> IO ()
-        executeMove m = let (newState, newBoard) = playMove p b m
-            in case newState of
-                InProgress -> play newBoard (switchPlayer p)
-                otherwise  -> printBoard newBoard >> putStrLn (showGameState newState) -}
+    when _DISPLAY_LOGO_ (printLogo >>= putStrLn)
+    return $ printBoard b
+    return (promptPlayer p)
+    m <- getMoveDo b
+    case playMove p b m of
+        (InProgress, b') -> play b' (switchPlayer p)
+        (gs, b') -> do
+            printBoard b'
+            putStrLn $ showGameState gs
